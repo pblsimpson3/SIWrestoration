@@ -1,0 +1,6 @@
+{
+  "name": "Saugus Iron Works Restoration Explorer",
+  "description": "An interactive educational application for students to study the restoration of Saugus Iron Works. Students select roles, watch the documentary with subtitles, analyze restoration quotes from the perspective of their historical persona, and export their findings to Google Drive.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

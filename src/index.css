@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lora", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Natural Tones Custom Palette */
+  --color-natural-bg: #F5F2ED;
+  --color-natural-text: #2C2420;
+  --color-natural-dark: #3D332D;
+  --color-natural-darker: #1A1613;
+  --color-natural-accent: #8B4513;
+  --color-natural-accent-hover: #A0522D;
+  --color-natural-sage: #5A5A40;
+  --color-natural-sage-hover: #4A4A35;
+  --color-natural-sand: #E6E0D4;
+  --color-natural-sand-dark: #D1C7B7;
+}
+
