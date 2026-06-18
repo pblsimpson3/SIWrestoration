@@ -34,15 +34,28 @@ export default function ActiveRatingDeck({
   };
 
   const handleLike = () => {
-    onRatingChange(currentQuote.id, true, explanation);
+  // 1. Track FIRST before anything else can crash -RS3 6/18
+  try {
     pushRatingToGTM(currentQuote.id, 'likely');
-  };
+  } catch (error) {
+    console.error("GTM tracking failed safely:", error);
+  }
 
-  const handleDislike = () => {
-    // If dislike, we can reset or empty the explanation since step 5 is only required for Thumbs Up.
-    onRatingChange(currentQuote.id, false, '');
+  // 2. Run video/state updates second
+  onRatingChange(currentQuote.id, true, explanation);
+};
+
+const handleDislike = () => {
+  // 1. Track FIRST before anything else can crash -RS3 6/18
+  try {
     pushRatingToGTM(currentQuote.id, 'unlikely');
-  };
+  } catch (error) {
+    console.error("GTM tracking failed safely:", error);
+  }
+
+  // 2. Run video/state updates second
+  onRatingChange(currentQuote.id, false, '');
+};
 
   const handleExplanationChange = (text: string) => {
     onRatingChange(currentQuote.id, isLiked, text);
