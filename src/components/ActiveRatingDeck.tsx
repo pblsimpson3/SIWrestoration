@@ -18,18 +18,19 @@ export default function ActiveRatingDeck({
   const isLiked = rating?.isLiked ?? null;
   const explanation = rating?.explanation ?? '';
 
-  // Helper to safely send rating events to GTM in TypeScript -RS3
+  // Helper to safely send rating events to GTM in TypeScript updated -RS3
   const pushRatingToGTM = (quoteId: number, ratingValue: 'likely' | 'unlikely') => {
-    if (typeof window !== 'undefined') {
-      const dataLayer = (window as any).dataLayer || [];
-      (window as any).dataLayer = dataLayer;
-      dataLayer.push({
-        event: 'quote_rated',
-        // Formats quote ID with leading zero (e.g., "quote_01", "quote_19")
-        quote_id: `quote_${String(quoteId).padStart(2, '0')}`,
-        rating_type: ratingValue
-      });
-    }
+  // Ensure dataLayer is initialized on the window object
+  window.dataLayer = window.dataLayer || [];
+  
+  const payload = {
+    event: 'quote_rated',
+    quote_id: `quote_${String(quoteId).padStart(2, '0')}`,
+    rating_type: ratingValue
+  };
+
+  console.log("Pushing to GTM:", payload); // CRITICAL: Open your browser console (F12) to see if this logs!
+  window.dataLayer.push(payload);
   };
 
   const handleLike = () => {
