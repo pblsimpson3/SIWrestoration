@@ -18,13 +18,29 @@ export default function ActiveRatingDeck({
   const isLiked = rating?.isLiked ?? null;
   const explanation = rating?.explanation ?? '';
 
+  // Helper to safely send rating events to GTM in TypeScript -RS3
+  const pushRatingToGTM = (quoteId: number, ratingValue: 'likely' | 'unlikely') => {
+    if (typeof window !== 'undefined') {
+      const dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer = dataLayer;
+      dataLayer.push({
+        event: 'quote_rated',
+        // Formats quote ID with leading zero (e.g., "quote_01", "quote_19")
+        quote_id: `quote_${String(quoteId).padStart(2, '0')}`,
+        rating_type: ratingValue
+      });
+    }
+  };
+
   const handleLike = () => {
     onRatingChange(currentQuote.id, true, explanation);
+    pushRatingToGTM(currentQuote.id, 'likely');
   };
 
   const handleDislike = () => {
     // If dislike, we can reset or empty the explanation since step 5 is only required for Thumbs Up.
     onRatingChange(currentQuote.id, false, '');
+    pushRatingToGTM(currentQuote.id, 'unlikely');
   };
 
   const handleExplanationChange = (text: string) => {
