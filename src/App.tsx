@@ -59,6 +59,23 @@ export default function App() {
   };
 
   const handleRatingChange = (quoteId: number, isLiked: boolean | null, explanation: string) => {
+    // Centrally push rating event to GTM dataLayer - RS3 6/18
+    if (isLiked !== null) {
+      try {
+        const dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer = dataLayer;
+        dataLayer.push({
+          event: 'quote_rated',
+          // Dynamically formats the actual quoteId parameter passed by the child component
+          quote_id: `quote_${String(quoteId).padStart(2, '0')}`,
+          rating_type: isLiked ? 'likely' : 'unlikely'
+        });
+        console.log("Centralized GTM Push Success:", quoteId, isLiked ? 'likely' : 'unlikely');
+      } catch (error) {
+        console.error("Centralized GTM tracking failed safely:", error);
+      }
+    }
+
     const updated = {
       ...ratings,
       [quoteId]: { isLiked, explanation }
