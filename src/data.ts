@@ -56,7 +56,7 @@ export const QUOTES: Quote[] = [
   },
   {
     id: 3,
-    text: "“Sensing the importance of the project the American Iron and Steel Institute agreed to underwrite…MIT professor E.L. Hartley was enlisted to search for facts and figures...”",
+    text: "“Sensing the importance of the project the American Iron and Steel Institute agreed to underwrite…MIT professor E.L. Hartley were enlisted to search for facts and figures...”",
     startTime: 174,
     endTime: 192,
     primarySpeaker: "Narrator explaining research support",
